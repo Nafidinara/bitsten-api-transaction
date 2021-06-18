@@ -5,7 +5,7 @@ const bcryptService = () => {
     const salt = bcrypt.genSaltSync();
     const hash = bcrypt.hashSync(user.password, salt);
 
-    return hash;
+    return {hash : hash, salt : salt};
   };
 
   const comparePassword = (pw, hash) => (

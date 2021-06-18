@@ -1,18 +1,42 @@
 const User = require('../models/User');
 const authService = require('../services/auth.service');
 const bcryptService = require('../services/bcrypt.service');
-const { QueryTypes } = require('sequelize');
 const database = require('../../config/database');
+const { networkInterfaces } = require('os');
 
 const UserController = () => {
+  const UserIP = () => {
+    const nets = networkInterfaces();
+    const results = Object.create(null); // Or just '{}', an empty object
+    let ip = 'localhost';
+
+    for (const name of Object.keys(nets)) {
+      for (const net of nets[name]) {
+        // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+        if (net.family === 'IPv4' && !net.internal) {
+          if (!results[name]) {
+            results[name] = [];
+          }
+          results[name].push(net.address);
+        }
+      }
+    }
+    if (results.ens4){
+      ip = results.ens4[0];
+    }
+
+    return ip;
+  }
+
   const register = async (req, res) => {
     const { body } = req;
 
-    if (body.password === body.password2) {
+    if (body.password === body.c_password) {
       try {
         const user = await User.create({
           email: body.email,
           password: body.password,
+          ip_address: UserIP()
         });
         const token = authService().issue({ id: user.id });
 
