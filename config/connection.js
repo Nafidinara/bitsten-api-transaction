@@ -22,10 +22,13 @@ const production = {
   password: process.env.DB_PASS,
   host: process.env.DB_HOST,
   dialect:'mysql',
-};
+}; 
+
+const api_email = process.env.API_EMAIL;
 
 module.exports = {
   development,
   testing,
   production,
+  api_email
 };
