@@ -1,4 +1,4 @@
-# express-rest-api-boilerplate
+# express-rest-api-boilerpla
 
 > Express REST API with JWT Authentication and support for sqlite, mysql, and postgresql
 
