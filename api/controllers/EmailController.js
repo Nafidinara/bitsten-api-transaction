@@ -3,10 +3,6 @@ const { QueryTypes } = require('sequelize');
 const database = require('../../config/database');
 const https = require('https');
 const fs = require('fs');
-const connection = require('./connection');
-
-
-let token = connection.api_email;
 
 const EmailController = () => {
 
@@ -38,7 +34,7 @@ const options = {
   path: '/v3/mail/send',
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer '+token,
+    'Authorization': 'Bearer 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',
     'Content-Type': 'application/json',
     'Content-Length': data.length
   }
