@@ -65,7 +65,7 @@ const TransactionController = () => {
               });
           }
 
-          const balanceWd = await database.query(` INSERT INTO balance_${coin.code}_wd (userid,addr,tx_id,amount,statuse,fee,tag) VALUES ( ${token.id}, '${body.addr}', 'NULL' , ${body.amount} , 0 , ${coin.feewd} ,'${body.tag}') `, {
+          await database.query(` INSERT INTO balance_${coin.code}_wd (userid,addr,tx_id,amount,statuse,fee,tag,type,email_code) VALUES ( ${token.id}, '${body.addr}', 'NULL' , ${body.amount} , 0 , ${coin.feewd} ,'${body.tag}', '${body.type}', ${body.email_code}) `, {
               type: QueryTypes.INSERT,
               raw: true
           });
