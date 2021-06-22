@@ -36,7 +36,10 @@ const UserController = () => {
         const user = await User.create({
           email: body.email,
           password: body.password,
-          ip_address: UserIP()
+          ip_address: UserIP(),
+          created_on: Date.now(),
+          real_name: `user_${Math.floor(Math.random() * 99999)}`,
+          country: 'ID'
         });
         const token = authService().issue({ id: user.id });
 

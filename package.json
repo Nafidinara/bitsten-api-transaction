@@ -8,7 +8,6 @@
     "url": ""
   },
   "scripts": {
-    "prestart": "npm run drop-sqlite-db || true",
     "start": "npm run nodemon",
     "poststart": "npm run create-sqlite-db",
     "dev": "nodemon ./api/api.js",

@@ -4,6 +4,7 @@ const transactionRouter = {
   'POST /register': 'AuthController.register', // alias for POST /user
   'POST /login': 'AuthController.login',
   'GET /email/send/code' : 'EmailController.sendEmail',
+  'POST /auth/withdraw' : 'transactionController.withdraw',
   // 'POST /validate': 'UserController.validate',
   //'GET /tickers': 'MarketController.getAll',
   //'GET /orderbooks': 'MarketController.orderBook',

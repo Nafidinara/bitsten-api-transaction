@@ -1,4 +1,3 @@
-//const Chart = require('../models/Chart');
 const { QueryTypes } = require('sequelize');
 const database = require('../../config/database');
 const https = require('https');
@@ -34,7 +33,7 @@ const options = {
   path: '/v3/mail/send',
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer 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',
+    'Authorization': `Bearer ${process.env.TOKEN_EMAIL}`,
     'Content-Type': 'application/json',
     'Content-Length': data.length
   }
