@@ -1,29 +1,25 @@
-const { QueryTypes } = require('sequelize');
-const database = require('../../config/database');
 const https = require('https');
 const fs = require('fs');
 
 const EmailController = () => {
 
   const sendEmail = async (req, res) => {
-    const { email,id } = req.query; 
- 
-
-//console.log(email);
+    const { body } = req;
+    let email = body.email;
+    let userid = body.userid;
+    let data   = body.data;
     try {
-
-
-let header = "Bitsten Transaction Code";
-let isi    = ""+ new Date();
+  let header = "Bitsten Transaction Code";
+  let isi    = ""+ new Date();
 
 
 
 
-  const dd = await fs.readFileSync('./email-template/index.html', 'utf8'); 
+  const dd = await fs.readFileSync('./email-template/index.html', 'utf8');
   //console.log(dd);
   isi = dd.replace('{code}',id);
 
-  
+
 
 const data = "{\"personalizations\": [{\"to\": [{\"email\": \""+email+"\"}]}],\"from\": {\"email\": \"support@bitsten.com\"},\"subject\": \""+header+"\",\"content\": [{\"type\": \"text/html \", \"value\": \""+isi+"\"}]}";
 
@@ -44,13 +40,7 @@ const req = https.request(options, res2 => {
   return res.status(200).json({
     status : true,
     message : "success"
-    
   });
-  /*
-  res.on('data', d => {
-    process.stdout.write(d)
-  })
-  */
 })
 
 req.on('error', error => {
@@ -58,23 +48,12 @@ req.on('error', error => {
   return res.status(200).json({
     status : false,
     message : error,
-    
+
   });
 })
 
 req.write(data)
 req.end()
-
-
-
-/*
-return res.status(200).json({
-  status : false,
-  message : "error",
-  
-});
-*/
-    
 
     } catch (err) {
       console.log(err);
@@ -90,7 +69,5 @@ return res.status(200).json({
     sendEmail,
   };
 };
-
-//EmailController.sendEmail();
 
 module.exports = EmailController;

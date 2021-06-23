@@ -1,4 +1,4 @@
-# Contributing to express-rest-api-boilerplate
+# Contributing to express-rest-api-boilerplate - eee
 
 First off, thank you for taking your time to contribute!
 

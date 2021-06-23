@@ -1,9 +1,9 @@
- 
+
 const transactionRouter = {
   //'POST /user': 'AuthController.register',
   'POST /register': 'AuthController.register', // alias for POST /user
   'POST /login': 'AuthController.login',
-  'GET /email/send/code' : 'EmailController.sendEmail',
+  'POST /email/send/code' : 'EmailController.sendEmail',
   'POST /auth/withdraw' : 'transactionController.withdraw',
   // 'POST /validate': 'UserController.validate',
   //'GET /tickers': 'MarketController.getAll',
@@ -17,6 +17,5 @@ const transactionRouter = {
   //'GET /market/main' : 'MarketController.getMain',
 };
 
-module.exports = transactionRouter; 
+module.exports = transactionRouter;
 
-  
