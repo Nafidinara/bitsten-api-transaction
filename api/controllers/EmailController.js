@@ -11,9 +11,17 @@ let token = connection.api_email;
 const EmailController = () => {
 
   const sendEmail = async (req, res) => {
-    const { email,id } = req.query; 
- 
+    const { body } = req; 
+    var email = body.email;
+    var userid = body.userid;
+    var data   = body.data;
 
+    console.log(body);
+    
+ 
+    
+
+    return;
 //console.log(email);
     try {
 
