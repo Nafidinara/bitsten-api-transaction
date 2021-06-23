@@ -3,6 +3,7 @@ const authService = require('../services/auth.service');
 const bcryptService = require('../services/bcrypt.service');
 const database = require('../../config/database');
 const { networkInterfaces } = require('os');
+const { QueryTypes } = require('sequelize');
 
 const UserController = () => {
   const UserIP = () => {
@@ -64,30 +65,34 @@ const UserController = () => {
                 email,
               },
             });
-        
+
         if (!user) {
           return res.status(400).json({ status : false,
             message : 'Bad Request: User not found' });
         }
 
         if (bcryptService().comparePassword(password, user.password)) {
-          const token = authService().issue({ id: user.id });
-          var m = {};
+          let token = authService().issue({ id: user.id });
           try {
-             m = await database.query(`insert into users_token (userid,token)  values("${user.id}","${token}")`, {
-            //type: QueryTypes.SELECT,
-            //raw:true 
+             await database.query(`insert into users_token (userid,token)  values("${user.id}","${token}")`, {
+            type: QueryTypes.INSERT,
+            raw:true
           });
         }
         catch (err) {
           console.log(err);
-         
+
         }
 
-          return res.status(200).json({ 
+        token = authService().encrypt(token);
+
+          return res.status(200).json({
             status : true,
-    message : "ok",
-    data:{token:token}
+            message : "ok",
+            data:
+              {
+                token:token
+              }
           });
         }
 

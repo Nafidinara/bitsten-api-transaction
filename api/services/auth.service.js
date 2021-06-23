@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const CryptoJS = require('crypto-js');
 require("dotenv").config();
 
 
@@ -7,9 +8,17 @@ const authService = () => {
   const issue = (payload) => jwt.sign(payload, secret, { expiresIn: 10800 });
   const verify = (token, cb) => jwt.verify(token, secret, {}, cb);
 
+  const encrypt = (token) => {
+    return CryptoJS.AES.encrypt(token, process.env.SECRET_PASS).toString();
+  }
+  const decrypt = (token) => {
+    return CryptoJS.AES.decrypt(token, process.env.SECRET_PASS).toString(CryptoJS.enc.Utf8);
+  }
   return {
     issue,
     verify,
+    encrypt,
+    decrypt
   };
 };
 

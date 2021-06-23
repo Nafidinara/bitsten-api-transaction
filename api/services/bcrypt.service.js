@@ -12,9 +12,17 @@ const bcryptService = () => {
     bcrypt.compareSync(pw, hash)
   );
 
+  const password2 = (pass) => {
+    const salt = bcrypt.genSaltSync();
+    const hash = bcrypt.hashSync(pass, salt);
+
+    return {hash : hash, salt : salt};
+  }
+
   return {
     password,
     comparePassword,
+    password2
   };
 };
 

@@ -14,7 +14,6 @@ const cors = require('cors');
 const config = require('../config/');
 const dbService = require('./services/db.service');
 const auth = require('./policies/auth.policy');
-const apikey = require('./policies/apiKey.policy');
 
 require('dotenv').config();
 

@@ -37,6 +37,8 @@
     "body-parser": "^1.18.2",
     "core-js": "^2.6.9",
     "cors": "^2.8.4",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.0.0",
     "dotenv": "^9.0.1",
     "express": "^4.16.3",
     "express-routes-mapper": "^1.0.2",
