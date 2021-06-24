@@ -7,11 +7,17 @@ const UserToken = require('./../models/UserToken');
 
 // usually: "Authorization: Bearer [token]" or "token: [token]"
 module.exports = async (req, res, next) => {
-  let tokenToVerify;
+  let tokenToVerify,type;
+
+  type = req.body.type;
+  if (type === 1){
+    console.log(req.body.data.email);
+    req.user = req.body.data;
+    return next();
+  }
+
   if (req.header('Authorization')) {
     const parts = req.header('Authorization').split(' ');
-
-
 
     if (parts.length === 2) {
       const scheme = parts[0];

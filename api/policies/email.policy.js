@@ -4,12 +4,11 @@ const EmailCode = require('./../models/EmailCode');
 module.exports = async (req, res, next) => {
   let encryptCode, decryptCode, body, email,data;
   body = req.body;
-  decryptCode = body.email_code.toString();
 
-  if(!decryptCode){
+  if(!body.email_code){
     return res.status(401).json({ success:false, message:'Email Code Not Valid' });
   }else{
-
+    decryptCode = body.email_code.toString();
     encryptCode = JWTService().encryptMd5(decryptCode);
 
     console.log(`${encryptCode} | ${decryptCode}`);

@@ -46,9 +46,14 @@ app.use(helmet({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+let emailService = [
+  '/transaction/auth/withdraw',
+  '/transaction/register'
+];
+
 // secure your private routes with jwt authentication middleware
 app.all('/transaction/auth/*', (req, res, next) => auth(req, res, next));
-app.all('/transaction/auth/withdraw', (req, res, next) => emailMiddleware(req, res, next));
+app.all(emailService, (req, res, next) => emailMiddleware(req, res, next));
 
 
 

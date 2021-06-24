@@ -14,7 +14,8 @@ const hooks = {
 
 const EmailCode = db.define('email_code', {
     userid:{
-        type: Sequelize.BIGINT
+        type: Sequelize.BIGINT,
+        allowNull : true
     },
     date:{
         type: Sequelize.STRING

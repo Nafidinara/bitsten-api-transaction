@@ -73,12 +73,12 @@ const req = https.request(options, res2 => {
 
   EmailCode.destroy({
     where: {
-        userid: user.id,
+        userid: (!user.id) ? user.email : user.id,
       statuse: 0
     } });
 
   EmailCode.create({
-    userid : user.id,
+    userid : (!user.id) ? user.email : user.id,
     code : code,
     statuse : 0,
     data : body.data,
