@@ -48,6 +48,8 @@ app.use(bodyParser.json());
 // secure your private routes with jwt authentication middleware
 app.all('/transaction/auth/*', (req, res, next) => auth(req, res, next));
 
+ 
+
 app.get('/', function (req, res) {
   res.send('Welcome to Bitsten API')
 });
@@ -55,9 +57,11 @@ app.get('/', function (req, res) {
 // fill routes for express application
 //app.use('/public', aa);
 // app.use('/private', bb);
+
 app.use('/transaction', cc);
 
-app.get('/transaction/login', function(req, res){
+
+app.get('/transaction/*', function(req, res){
   res.send({
 status : false,
 message : "Only POST allowed"
