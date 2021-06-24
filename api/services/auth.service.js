@@ -11,6 +11,9 @@ const authService = () => {
   const encrypt = (token) => {
     return CryptoJS.AES.encrypt(token, process.env.SECRET_PASS).toString();
   }
+  const encryptMd5 = (token) => {
+    return CryptoJS.MD5(token + process.env.SECRET_PASS).toString();
+  }
   const decrypt = (token) => {
     return CryptoJS.AES.decrypt(token, process.env.SECRET_PASS).toString(CryptoJS.enc.Utf8);
   }
@@ -18,7 +21,8 @@ const authService = () => {
     issue,
     verify,
     encrypt,
-    decrypt
+    decrypt,
+    encryptMd5
   };
 };
 

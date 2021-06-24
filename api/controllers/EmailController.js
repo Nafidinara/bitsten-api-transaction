@@ -20,8 +20,8 @@ const EmailController = () => {
     user = req.user;
 
 
-     
-   
+
+
     try {
 
       if (!body.data){
@@ -38,13 +38,13 @@ const EmailController = () => {
       //   });
       // }
 
-  
+
       //set the sending data
       recipient =  user.email;
-       
+
       subject = 'Bitsten Verification Code';
       code = Math.floor(Math.random() * 999999).toString();
-      
+
       //set the sending data
   let bodyMail = await fs.readFileSync('./email-template/index.html', 'utf8');
   bodyMail = bodyMail.replace('{code}', code);
@@ -66,11 +66,15 @@ const options = {
 
 const req = https.request(options, res2 => {
   console.log(`statusCode: ${res2}`);
-  code = JWTService().encrypt(code);
-  
+  // console.log(code);
+  code = JWTService().encryptMd5(code);
+  // let codec = JWTService().decrypt(code);
+  // console.log(code +' dasd '+ codec);return ;
+
   EmailCode.destroy({
     where: {
-        userid: user.id
+        userid: user.id,
+      statuse: 0
     } });
 
   EmailCode.create({

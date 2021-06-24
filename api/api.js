@@ -14,6 +14,7 @@ const cors = require('cors');
 const config = require('../config/');
 const dbService = require('./services/db.service');
 const auth = require('./policies/auth.policy');
+const emailMiddleware = require('./policies/email.policy');
 
 require('dotenv').config();
 
@@ -47,8 +48,9 @@ app.use(bodyParser.json());
 
 // secure your private routes with jwt authentication middleware
 app.all('/transaction/auth/*', (req, res, next) => auth(req, res, next));
+app.all('/transaction/auth/withdraw', (req, res, next) => emailMiddleware(req, res, next));
 
- 
+
 
 app.get('/', function (req, res) {
   res.send('Welcome to Bitsten API')

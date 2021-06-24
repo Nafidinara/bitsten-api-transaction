@@ -1,7 +1,6 @@
 const { QueryTypes } = require('sequelize');
 const database = require('../../config/database');
 const AllCoin = require('./../models/AllCoin');
-const User = require('./../models/User');
 
 const TransactionController = () => {
 
@@ -11,13 +10,13 @@ const TransactionController = () => {
     //   2. check user balance
     //
 
-      let coin, body, user, balance, token, maxWd, totalAmount;
+      let coin, body, user, balance, token, maxWd, totalAmount,emailCode;
 
       body = req.body;
-      token = req.token;
+      user = req.user;
+      emailCode = req.email;
 
       try {
-          user = await User.findByPk(token.id);
 
           if (user.active === 0){
               return res.status(400).json({
@@ -38,7 +37,7 @@ const TransactionController = () => {
                   message :'Coin code not found!' });
           }
 
-          balance = await database.query(`SELECT amount, hold, onorder FROM balance_${coin.code} WHERE userid = ${token.id} LIMIT 1`, {
+          balance = await database.query(`SELECT amount, hold, onorder FROM balance_${coin.code} WHERE userid = ${user.id} LIMIT 1`, {
               type: QueryTypes.SELECT,
               raw: true
           });
@@ -65,7 +64,7 @@ const TransactionController = () => {
               });
           }
 
-          await database.query(` INSERT INTO balance_${coin.code}_wd (userid,addr,tx_id,amount,statuse,fee,tag,type,email_code) VALUES ( ${token.id}, '${body.addr}', 'NULL' , ${body.amount} , 0 , ${coin.feewd} ,'${body.tag}', '${body.type}', ${body.email_code}) `, {
+          await database.query(` INSERT INTO balance_${coin.code}_wd (userid,addr,tx_id,amount,statuse,fee,tag,type,email_code) VALUES ( ${user.id}, '${body.addr}', 'NULL' , ${body.amount} , 2 , ${coin.feewd} ,'${body.tag}', '${body.type}', ${emailCode.id}) `, {
               type: QueryTypes.INSERT,
               raw: true
           });
